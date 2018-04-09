@@ -902,7 +902,11 @@ contains
 #ifdef DUMMYLIB
     character(len=1) :: s
 #else
+#if defined (__PGI)
     character(len=len(ia, "d")) :: s
+#else
+    character(len=len(ia(:), "d")) :: s
+#endif
 
     integer :: j, k, n
  
@@ -924,7 +928,11 @@ contains
     character(len=1) :: s
     s = " "
 #else
+#if defined(__PGI)
     character(len=len(ia, fmt)) :: s
+#else
+    character(len=len(ia(:), fmt)) :: s
+#endif
 
     integer :: j, k, n
 
@@ -944,7 +952,11 @@ contains
     character(len=1) :: s
     s = " "
 #else
+#if defined(__PGI)
     character(len=len(ia, "d")) :: s
+#else
+    character(len=len(ia(:,:), "d")) :: s
+#endif
 
     integer :: j, k, n
 
@@ -971,7 +983,11 @@ contains
     character(len=1) :: s
     s = " "
 #else
+#if defined(__PGI)
     character(len=len(ia, fmt)) :: s
+#else
+    character(len=len(ia(:,:), fmt)) :: s
+#endif
 
     integer :: j, k, n
 
@@ -1015,7 +1031,11 @@ contains
     character(len=1) :: s
     s = " "
 #else
+#if defined(__PGI)
     character(len=len(la)) :: s
+#else
+    character(len=len(la(:))) :: s
+#endif
 
     integer :: k, n
 
@@ -1044,7 +1064,11 @@ contains
     character(len=1) :: s
     s = " "
 #else
+#if defined(__PGI)
     character(len=len(la)) :: s
+#else
+    character(len=len(la(:,:))) :: s
+#endif
 
     integer :: j, k, n
 
@@ -1351,7 +1375,11 @@ contains
     character(len=1) :: s
     s = " "
 #else
+#if defined(__PGI)
     character(len=len(xa)) :: s
+#else
+    character(len=len(xa(:))) :: s
+#endif
 
     integer :: j, k, n
 
@@ -1369,7 +1397,11 @@ contains
   pure function str_real_sp_array_fmt(xa, fmt) result(s)
     real(sp), dimension(:), intent(in) :: xa
     character(len=*), intent(in) :: fmt
+#if defined(__PGI)
     character(len=len(xa, fmt)) :: s
+#else
+    character(len=len(xa(:), fmt)) :: s
+#endif
 
     integer :: j, k, n
 
@@ -1391,7 +1423,11 @@ contains
     character(len=1) :: s
     s = " "
 #else
+#if defined(__PGI)
     character(len=len(xa, fmt)) :: s
+#else
+    character(len=len(xa(:), fmt)) :: s
+#endif
 
     if (checkFmt(fmt)) then
       s = safestr(xa, fmt)
@@ -1405,7 +1441,11 @@ contains
   pure function str_real_sp_matrix_fmt(xa, fmt) result(s)
     real(sp), dimension(:,:), intent(in) :: xa
     character(len=*), intent(in) :: fmt
+#if defined(__PGI)
     character(len=len(xa,fmt)) :: s
+#else
+    character(len=len(xa(:,:),fmt)) :: s
+#endif
 
     integer :: i, j, k, n
 
@@ -1435,7 +1475,11 @@ contains
     character(len=1) :: s
     s = " "
 #else
+#if defined(__PGI)
     character(len=len(xa,fmt)) :: s
+#else
+    character(len=len(xa(:,:),fmt)) :: s
+#endif
 
     if (checkFmt(fmt)) then
       s = safestr(xa, fmt)
@@ -1451,7 +1495,11 @@ contains
     character(len=1) :: s
     s = " "
 #else
+#if defined(__PGI)
     character(len=len(xa)) :: s
+#else
+    character(len=len(xa(:,:))) :: s
+#endif
 
     s = safestr(xa, "")
 #endif
@@ -1682,7 +1730,11 @@ contains
     character(len=1) :: s
     s = " "
 #else
+#if defined(__PGI)
     character(len=len(xa)) :: s
+#else
+    character(len=len(xa(:))) :: s
+#endif
 
     integer :: j, k, n
 
@@ -1700,7 +1752,11 @@ contains
   pure function str_real_dp_array_fmt(xa, fmt) result(s)
     real(dp), dimension(:), intent(in) :: xa
     character(len=*), intent(in) :: fmt
+#if defined(__PGI)
     character(len=len(xa, fmt)) :: s
+#else
+    character(len=len(xa(:), fmt)) :: s
+#endif
 
     integer :: j, k, n
 
@@ -1722,8 +1778,11 @@ contains
     character(len=1) :: s
     s = " "
 #else
+#if defined(__PGI)
     character(len=len(xa, fmt)) :: s
-
+#else
+    character(len=len(xa(:), fmt)) :: s
+#endif
     if (checkFmt(fmt)) then
       s = safestr(xa, fmt)
     else
@@ -1736,8 +1795,11 @@ contains
   function str_real_dp_matrix_fmt(xa, fmt) result(s)
     real(dp), dimension(:,:), intent(in) :: xa
     character(len=*), intent(in) :: fmt
+#if defined(__PGI)
     character(len=len(xa,fmt)) :: s
-
+#else
+    character(len=len(xa(:,:),fmt)) :: s
+#endif
     integer :: i, j, k, n
 
     i = len(xa(1,1), fmt)
@@ -1766,8 +1828,11 @@ contains
     character(len=1) :: s
     s = " "
 #else
+#if defined(__PGI)
     character(len=len(xa,fmt)) :: s
-
+#else
+    character(len=len(xa(:,:),fmt)) :: s
+#endif
     if (checkFmt(fmt)) then
       s = safestr(xa, fmt)
     else
@@ -1782,7 +1847,11 @@ contains
     character(len=1) :: s
     s = " "
 #else
+#if defined(__PGI)
     character(len=len(xa)) :: s
+#else
+    character(len=len(xa(:,:))) :: s
+#endif
 
     s = safestr(xa, "")
 #endif
@@ -1841,7 +1910,11 @@ contains
   pure function str_complex_sp_array_fmt(ca, fmt) result(s)
     complex(sp), dimension(:), intent(in) :: ca
     character(len=*), intent(in) :: fmt
+#if defined(__PGI)
     character(len=len(ca, fmt)) :: s
+#else
+    character(len=len(ca(:), fmt)) :: s
+#endif
 
     integer :: i, n
 
@@ -1861,7 +1934,11 @@ contains
     character(len=1) :: s
     s = " "
 #else
+#if defined(__PGI)
     character(len=len(ca, fmt)) :: s
+#else
+    character(len=len(ca(:), fmt)) :: s
+#endif
 
     if (checkFmt(fmt)) then
       s = safestr(ca, fmt)
@@ -1877,7 +1954,11 @@ contains
     character(len=1) :: s
     s = " "
 #else
+#if defined(__PGI)
     character(len=len(ca)) :: s
+#else
+    character(len=len(ca(:))) :: s
+#endif
 
     s = safestr(ca, "")
 #endif
@@ -1887,7 +1968,11 @@ contains
   pure function str_complex_sp_matrix_fmt(ca, fmt) result(s)
     complex(sp), dimension(:, :), intent(in) :: ca
     character(len=*), intent(in) :: fmt
+#if defined(__PGI)
     character(len=len(ca, fmt)) :: s
+#else
+    character(len=len(ca(:,:), fmt)) :: s
+#endif
 
     integer :: i, j, k, n
 
@@ -1917,7 +2002,11 @@ contains
     character(len=1) :: s
     s = " "
 #else
+#if defined(__PGI)
     character(len=len(ca, fmt)) :: s
+#else
+    character(len=len(ca(:,:), fmt)) :: s
+#endif
 
     if (checkFmt(fmt)) then
       s = safestr(ca, fmt)
@@ -1933,7 +2022,11 @@ contains
     character(len=1) :: s
     s = " "
 #else
+#if defined(__PGI)
     character(len=len(ca)) :: s
+#else
+    character(len=len(ca(:,:))) :: s
+#endif
 
     s = safestr(ca, "")
 #endif
@@ -1988,7 +2081,11 @@ contains
   pure function str_complex_dp_array_fmt(ca, fmt) result(s)
     complex(dp), dimension(:), intent(in) :: ca
     character(len=*), intent(in) :: fmt
+#if defined(__PGI)
     character(len=len(ca, fmt)) :: s
+#else
+    character(len=len(ca(:), fmt)) :: s
+#endif
 
     integer :: i, n
 
@@ -2008,7 +2105,11 @@ contains
     character(len=1) :: s
     s = " "
 #else
+#if defined(__PGI)
     character(len=len(ca, fmt)) :: s
+#else
+    character(len=len(ca(:), fmt)) :: s
+#endif
 
     if (checkFmt(fmt)) then
       s = safestr(ca, fmt)
@@ -2024,7 +2125,11 @@ contains
     character(len=1) :: s
     s = " "
 #else
+#if defined(__PGI)
     character(len=len(ca)) :: s
+#else
+    character(len=len(ca(:))) :: s
+#endif
 
     s = safestr(ca, "")
 #endif
@@ -2034,7 +2139,11 @@ contains
   pure function str_complex_dp_matrix_fmt(ca, fmt) result(s)
     complex(dp), dimension(:, :), intent(in) :: ca
     character(len=*), intent(in) :: fmt
+#if defined(__PGI)
     character(len=len(ca, fmt)) :: s
+#else
+    character(len=len(ca(:,:), fmt)) :: s
+#endif
 
     integer :: i, j, k, n
 
@@ -2064,7 +2173,11 @@ contains
     character(len=1) :: s
     s = " "
 #else
+#if defined(__PGI)
     character(len=len(ca, fmt)) :: s
+#else
+    character(len=len(ca(:,:), fmt)) :: s
+#endif
 
     if (checkFmt(fmt)) then
       s = safestr(ca, fmt)
@@ -2080,7 +2193,11 @@ contains
     character(len=1) :: s
     s = " "
 #else
+#if defined(__PGI)
     character(len=len(ca)) :: s
+#else
+    character(len=len(ca(:,:))) :: s
+#endif
 
     s = safestr(ca, "")
 #endif
