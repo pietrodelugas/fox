@@ -956,6 +956,18 @@ endif
   end subroutine destroyNodeContents
 
 
+  pure function getTextContent_len(arg, p) result(n)
+    type(Node), intent(in) :: arg
+    logical, intent(in) :: p
+    integer :: n
+
+    if (p) then
+      n = arg%textContentLength
+    else
+      n = 0
+    endif
+  end function getTextContent_len
+
 
 
   pure function getnodeName_len(np, p) result(n)
@@ -4052,18 +4064,6 @@ endif
       enddo
     endif
   end subroutine updateTextContentLength
-
-  pure function getTextContent_len(arg, p) result(n)
-    type(Node), intent(in) :: arg
-    logical, intent(in) :: p
-    integer :: n
-
-    if (p) then
-      n = arg%textContentLength
-    else
-      n = 0
-    endif
-  end function getTextContent_len
 
   function getTextContent(arg, ex)result(c) 
     type(DOMException), intent(out), optional :: ex

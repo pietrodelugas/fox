@@ -14,19 +14,6 @@ module fox_m_fsys_format
 !to COUNT their length inline in the specification
 !expression, but Pathscale-2.4 gives an error on that.
 
-!With PGI (all versions up to last PGI 17.10 community edition)
-!all  the procedures exported with the safestr interface
-!were either crashing (older versions) or returning an empty string
-!(latest version) because of a compiler bug.  
-!This bug made fail  all the _Overload  tests in wxml/tests. 
-! safestr works correctly if  all colon are  removed  from the dimension 
-! of the ia array arguments passed  to the len functions 
-!             (see e.g. lines 918 and below).
-! With this format  it is instead ifort v.12 to fail, because of a similar and 
-! opposite bug fortunately fixed by Intel in the successive  versions
-! For sake of compatibility one or the other call is selected with 
-! preprocessor directives. 
-
   use fox_m_fsys_abort_flush, only: pxfflush
   use fox_m_fsys_realtypes, only: sp, dp
 
@@ -121,6 +108,32 @@ module fox_m_fsys_format
 #endif
 
 contains
+
+#ifndef DUMMYLIB
+  pure function checkFmt(fmt) result(good)
+    character(len=*), intent(in) :: fmt
+    logical :: good
+
+    ! should be ([rs]\d*)?
+
+    if (len(fmt) > 0) then
+      if (fmt(1:1) == "r" .or. fmt(1:1) == "s") then
+        if (len(fmt) > 1) then
+          good = (verify(fmt(2:), digit) == 0)
+        else
+          good = .true.
+        endif
+      else
+        good = .false.
+      endif
+    else
+      good = .true.
+    endif
+  end function checkFmt
+#endif
+
+
+
 
 #ifndef DUMMYLIB
   ! NB: The len generic module procedure is used in
@@ -2215,29 +2228,6 @@ contains
     s = safestr(ca, "")
 #endif
   end function str_complex_dp_matrix
-
-#ifndef DUMMYLIB
-  pure function checkFmt(fmt) result(good)
-    character(len=*), intent(in) :: fmt
-    logical :: good
-
-    ! should be ([rs]\d*)?
-
-    if (len(fmt) > 0) then
-      if (fmt(1:1) == "r" .or. fmt(1:1) == "s") then
-        if (len(fmt) > 1) then
-          good = (verify(fmt(2:), digit) == 0)
-        else
-          good = .true.
-        endif
-      else
-        good = .false.
-      endif
-    else
-      good = .true.
-    endif
-  end function checkFmt
-#endif
 
   pure function concat_str_int(s1, s2) result(s3)
     character(len=*), intent(in) :: s1
