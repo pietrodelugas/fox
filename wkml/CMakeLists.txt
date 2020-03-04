@@ -27,7 +27,7 @@ set(fox_wkml_srcs_pp
 )
 
 add_library(
-  ${PROJECT_NAME}_wkml STATIC
+  ${PROJECT_NAME}_wkml
   ${fox_wkml_srcs}
   ${fox_wkml_srcs_pp}
 )

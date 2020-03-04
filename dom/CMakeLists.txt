@@ -80,7 +80,7 @@ set(fox_dom_srcs
 )
 
 add_library(
-  ${PROJECT_NAME}_dom STATIC
+  ${PROJECT_NAME}_dom
   ${fox_dom_srcs}
   ${fox_dom_srcs_pp}
 )

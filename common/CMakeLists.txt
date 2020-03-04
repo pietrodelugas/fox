@@ -20,7 +20,7 @@ set(fox_common_srcs_pp
 )
 
 add_library(
-  ${PROJECT_NAME}_common STATIC
+  ${PROJECT_NAME}_common
   ${fox_common_srcs}
   ${fox_common_srcs_pp}
 )

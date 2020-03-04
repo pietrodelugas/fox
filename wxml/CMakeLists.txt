@@ -21,7 +21,7 @@ set(fox_wxml_srcs_pp
 )
  
 add_library(
-  ${PROJECT_NAME}_wxml STATIC
+  ${PROJECT_NAME}_wxml
   ${fox_wxml_srcs}
   ${fox_wxml_srcs_pp}
 )
