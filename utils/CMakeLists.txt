@@ -9,7 +9,7 @@ set(fox_utils_srcs_pp
 )
 
 add_library(
-  ${PROJECT_NAME}_utils STATIC
+  ${PROJECT_NAME}_utils
   ${fox_utils_srcs}
   ${fox_utils_srcs_pp}
 )

@@ -13,7 +13,7 @@ set(fox_sax_srcs_pp
   
 
 add_library(
-  ${PROJECT_NAME}_sax STATIC
+  ${PROJECT_NAME}_sax
   ${fox_sax_srcs}
   ${fox_sax_srcs_pp}
 )
