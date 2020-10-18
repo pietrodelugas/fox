@@ -63,7 +63,7 @@ OPTION(${PROJECT_NAME}_ENABLE_EXAMPLES "Build examples" ON)
 SET(OS ${CMAKE_SYSTEM})
 SET(MACHINE_ARCH ${CMAKE_SYSTEM_PROCESSOR})
 
-MESSAGE(STATUS "determining operating system and architecture:")
+MESSAGE(STATUS "Determining operating system and architecture:")
 MESSAGE("   -> your operating system is : ${OS}")
 MESSAGE("   -> your architecture is     : ${MACHINE_ARCH}")
 
